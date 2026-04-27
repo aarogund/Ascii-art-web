@@ -20,24 +20,16 @@ Arogundade Adewale Muideen
 
 ## Usage
 
-### 1. Start the server
+### 1. Visit:
+[ttps://ascii-art-web-production-3a1d.up.railway.app/share?text=I%20love%20Masturah%20but%20she%20wants%20to%20deny%20marital%20status%20to%20travel%20out.%20Is%20that%20good%3F&banner=standard
 
-```bash
-go run .
-```
-
-### 2. Open in browser
-
-```
-http://localhost:8080
-```
-
-### 3. Generate ASCII Art
+### 2. Generate ASCII Art
 
 * Enter text in the input field
 * Select a banner style
 * Click submit
 * View the ASCII art result on the page
+* Copy or Share to others.
 
 ---
 

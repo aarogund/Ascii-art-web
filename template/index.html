@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+    <style>        
+           body {
+    background-color: #FDF6EC;
+    font-family: 'Raleway', sans-serif;
+    color: #b65a3c;
+}
+header {
+    background-color: #b65a3c;
+    color: #FDF6EC;
+    padding: 20px;
+    text-align: center;
+}
+main {
+    width: 80%;
+    margin: 30px auto;
+}
+input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 2px solid #6B3A2A;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    background-color: #FDF6EC;
+    color: #6B3A2A;
+}
+button {
+    background-color: #8B4513;
+    color: #FDF6EC;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6B3A2A;
+}
+.banner-options {
+    margin: 15px 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.banner-options span {
+    font-weight: bold;
+}
+.color-options {
+    margin: 15px 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.color-options span {
+    font-weight: bold;
+}
+pre {
+    background-color: #FDF6EC;
+    border: 2px solid #6B3A2A;
+    border-radius: 5px;
+    padding: 20px;
+    font-family: 'Space Mono', monospace;
+    color: #b84823;
+    overflow-x: auto;
+}
+footer {
+    background-color: #b65636;
+    color: #FDF6EC;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+ 
+        <title>My ASCII-ART</title>
+    </head>
+
+    <body>
+        
+    <header>
+
+    <h1>ASCII Art Generator</h1>
+    <p>Convert your text into ASCII art using different banner styles</p>
+    <button onclick="toggleAbout()">About</button>
+    
+    <div id="about" style="display:none">
+        <p>This ASCII Art Generator converts text into beautiful ASCII art using three banner styles (Standard, Shadow and Thinkertoy), four alignment options (Left, Center, Right and Justify), and 6 color options: Red, Green, Blue, Cyan, Yellow and Purple. Built with Go and HTML.</p>
+    </div>
+    </header>
+    
+    <main>
+    
+        <form action="/ascii-art" method="POST">
+    <input type="text" name="input" placeholder="Enter text here">
+    <input type="text" name="substring" placeholder="Text to color (optional)">
+    <input type="hidden" id="artText" value="{{.Text}}">
+    <input type="hidden" id="artBanner" value="{{.Banner}}">
+    <div class="banner-options">
+    <input type="radio" name="filename" value="standard" checked> <span>Standard</span>
+    <input type="radio" name="filename" value="shadow"> <span>Shadow</span>
+    <input type="radio" name="filename" value="thinkertoy"> <span>Thinkertoy</span>
+</div>
+<div class="color-options">
+     <span>Color:</span> 
+    <input type="radio" name="color" value="" checked> <span>None</span>
+    <input type="radio" name="color" value="red"> <span>Red</span>
+    <input type="radio" name="color" value="blue"> <span>Blue</span>
+    <input type="radio" name="color" value="green"> <span>Green</span>
+    <input type="radio" name="color" value="yellow"> <span>Yellow</span>
+    <input type="radio" name="color" value="purple"> <span>Purple</span>
+    <input type="radio" name="color" value="cyan"> <span>Cyan</span>
+</div>
+<label for="align">Alignment:</label>
+<select name="align" id="align">
+    <option value="">None</option>
+    <option value="left">Left</option>
+    <option value="right">Right</option>
+    <option value="center">Center</option>
+    <option value="justify">Justify</option>
+</select>
+    
+    <button type="submit">Submit</button>
+        </form>
+        <pre>{{.Result}}</pre>
+        <button onclick="copyArt()">Copy</button>
+        <button onclick="shareArt()">Share</button>
+    </main>
+    
+    <footer>
+       
+        <p>Made by Adewale Muideen Arogundade</p>
+    </footer>
+    <script>
+function copyArt() {
+    const art = document.querySelector('pre').innerText;
+    navigator.clipboard.writeText(art);
+    alert('Copied to clipboard!');
+}
+function toggleAbout() {
+    const about = document.getElementById('about');
+    if (about.style.display === 'none') {
+        about.style.display = 'block';
+    } else {
+        about.style.display = 'none';
+    }
+}
+function shareArt() {
+    const text = document.getElementById('artText').value;
+const banner = document.getElementById('artBanner').value;
+    const shareURL = window.location.origin + '/share?text=' + encodeURIComponent(text) + '&banner=' + banner;
+    navigator.clipboard.writeText(shareURL);
+    alert('Share link copied to clipboard!');
+}
+</script>
+</body>
+
+</html>
